@@ -11,11 +11,7 @@ exports.criarProduto = async (req, res) => {
             NM_USUARIO_CRIACAO: 'Admin'
         };
 
-        console.log('Produto:', novoProduto);
-
         const produto = await produtoService.criarProduto(novoProduto);
-
-        console.log('ProdutoSalvo:', ProdutoResponse);
 
         res.status(201).json(new ProdutoResponse(produto));
     } catch (err) {
