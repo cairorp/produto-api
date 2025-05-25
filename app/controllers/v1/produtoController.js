@@ -32,6 +32,15 @@ exports.atualizar = async (req, res) => {
     try {
         const id = parseInt(req.params.id);
 
+        const { error, value } = produtoValidator.validate(req.body, {abortEarly: false});
+
+        if (error) 
+            return res.status(400).json({
+                error: 'Erro de validação',
+                detalhes: error.details.map(d => d.message)
+            });
+
+
         const produtoAtualizado = await produtoService.atualizar(id, {
             NM_PRODUTO: req.body.nome,
             VLR_PRODUTO: req.body.preco,
