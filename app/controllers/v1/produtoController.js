@@ -80,3 +80,29 @@ exports.deletar = async (req, res) => {
 
     return res.status(200).json({ message: 'Produto excluido com sucesso'});
 }
+
+exports.buscarPorFiltro = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const size = parseInt(req.query.size) || 10;
+
+        const filtros = {
+            nome: req.query.nome,
+            precoMin: req.query.precoMin,
+            precoMax: req.query.precoMax,
+            preco: req.query.preco,
+            descricao: req.query.descricao
+        };
+
+        const pagina = await produtoService.listarPaginado(page, size, filtros);
+
+        return res.json({
+            total: pagina.total,
+            page: page,
+            size: size,
+            data: pagina.produtos.map(prod => new ProdutoResponse(prod))
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
