@@ -62,10 +62,21 @@ exports.atualizar = async (req, res) => {
 exports.buscarPorId = async (req, res) => {
     const id = parseInt(req.params.id);
 
-    const produto = produtoService.buscarPorId(id);
+    const produto = await produtoService.buscarPorId(id);
 
     if (!produto)
         return res.status(404).json({ error: 'Produto não encontrado'});
 
     return res.status(200).json(new ProdutoResponse(produto));
+}
+
+exports.deletar = async (req, res) => {
+    const id = parseInt(req.params.id);
+
+    const excluido = await produtoService.excluir(id);
+
+    if (!excluido)
+        return res.status(404).json({ error: 'Produto não encontrado'});
+
+    return res.status(200).json({ message: 'Produto excluido com sucesso'});
 }
