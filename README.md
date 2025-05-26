@@ -26,7 +26,7 @@ API REST para cadastro, atualização, busca paginada e exclusão de produtos. D
 ### 2. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/produto-api.git
+git clone https://github.com/cairorp/produto-api.git
 cd produto-api
 ```
 
